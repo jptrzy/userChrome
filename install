@@ -1,0 +1,39 @@
+#!/bin/sh
+
+CONFIG_PATH="$HOME/.mozilla/firefox"
+
+printf "Welcome to userChrome instalation script.\n\n"
+
+PROFILES=$(cat "$CONFIG_PATH/profiles.ini" | grep "Path=" | sed "s/Path=//")
+PROFILES_MAX=$(echo $PROFILES | sed "s/ /\n/g" | wc -l) 
+
+echo "Profiles:"
+echo $PROFILES | sed "s/ /\n/g" | nl
+
+profile=$1
+while [[ $profile -lt 1 || $profile -gt $PROFILES_MAX ]]; do
+    # [[ $profile != 0 ]] && printf "\n'$profile' is not in range, please try again.\n" 
+
+    printf "Choose a profile [1-$PROFILES_MAX] "
+    read profile
+done
+profile=$(echo $PROFILES | sed "s/ /\n/g" | head -$profile | tail -1) 
+
+echo "Selected profile path: $profile"
+
+aggrement=$2
+while [[ $aggrement != "y" && $aggrement != "n" ]]; do
+    printf "Proceed with installation? [y/n] "
+    read aggrement
+done
+
+[[ $aggrement == "n" ]] && printf "Canceling installation.\n" && exit
+
+[[ -d "$CONFIG_PATH/$profile" ]] || ( printf "Folder '$CONFIG_PATH/$profile' doesn't exists.\nINSTALATION FAIL\n" && exit 1 )
+
+cp user.js "$CONFIG_PATH/$profile/user.js"
+
+mkdir -p "$CONFIG_PATH/$profile/chrome"
+cp "userChrome.css" "$CONFIG_PATH/$profile/chrome/userChrome.css"
+
+echo "Installation was successful; please reload your firefox browser to see changes."

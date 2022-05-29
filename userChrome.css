@@ -12,11 +12,11 @@ BB0F43
 :root{
 	--titlebar-height: 26px;
 	--tab-icon-height: 16px;
-	--nav-bar-height: 22px;
+	--nav-bar-height: 24px;
 /*	--tab-min-width: 30px !important; */
 	
-	--tabbrowser-bg-col: #D23761;
-	--tabbrowser-select-bg-col: #BF224E;
+	--tabbrowser-bg-col: #0b0017;
+	--tabbrowser-select-bg-col: #130029;
 }
 
 /* Core */
@@ -34,6 +34,7 @@ toolbarbutton:hover * {
 #titlebar * {
 	border: none !important;
 	border-radius: 0px !important;
+	box-shadow: none !important;
 }
 
 #titlebar *:not(.tab-icon-image, #tabs-newtab-button, .toolbarbutton-icon){
@@ -132,6 +133,7 @@ toolbarbutton *{
 	outline: none !important;
 	border: none !important;
 	border-radius: 0px !important;
+	box-shadow: none !important;
 }
 
 #nav-bar toolbarbutton{
@@ -171,5 +173,4 @@ toolbarbutton *{
 textarea:focus, input:focus{
     outline: none !important;
 }
-
 
